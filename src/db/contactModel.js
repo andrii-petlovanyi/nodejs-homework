@@ -5,7 +5,8 @@ const contactSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Set name for contact"],
+      trim: true,
+      required: [true, "Please enter name"],
       minLength: 3,
       maxLength: 30,
     },
@@ -14,14 +15,15 @@ const contactSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
       unique: true,
-      required: true,
-      match: [emailRegExp, "Please fill a valid email address"],
+      required: [true, "Please enter email"],
+      match: [emailRegExp, "Please enter the valid email address"],
     },
     phone: {
       type: String,
-      require: true,
+      trim: true,
+      required: [true, "Please enter phone number"],
       unique: true,
-      match: [phoneRegExp, "Please fill a valid phone number"],
+      match: [phoneRegExp, "Please enter the valid phone number"],
     },
     favorite: {
       type: Boolean,
