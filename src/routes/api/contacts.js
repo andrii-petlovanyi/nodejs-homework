@@ -1,4 +1,5 @@
 import { Router } from "express";
+
 import {
   addContCtrl,
   getAllContCtrl,
@@ -7,24 +8,40 @@ import {
   updateContByIdCtrl,
   updateStatusContactCtrl,
 } from "../../controllers/contactsCtrl.js";
+import { checkJWTAuth } from "../../middleware/checkJWTAuth.js";
 import { ctrlWrapper } from "../../middleware/ctrlWrapper.js";
 import { isValidId } from "../../middleware/idValidation.js";
 import { reqValidation } from "../../middleware/reqValidation.js";
-import { contactSchema } from "../../schemas/contact.js";
-import { favoriteSchema } from "../../schemas/favorite.js";
+import { contactSchema, favoriteSchema } from "../../schemas/contactSchema.js";
 
 const router = new Router();
 
-router.get("/", ctrlWrapper(getAllContCtrl));
+router.get("/", checkJWTAuth, ctrlWrapper(getAllContCtrl));
 
-router.get("/:contactId", isValidId, ctrlWrapper(getContByIdCtrl));
+router.get(
+  "/:contactId",
+  checkJWTAuth,
+  isValidId,
+  ctrlWrapper(getContByIdCtrl)
+);
 
-router.post("/", reqValidation(contactSchema), ctrlWrapper(addContCtrl));
+router.post(
+  "/",
+  checkJWTAuth,
+  reqValidation(contactSchema),
+  ctrlWrapper(addContCtrl)
+);
 
-router.delete("/:contactId", isValidId, ctrlWrapper(removeContByIdCtrl));
+router.delete(
+  "/:contactId",
+  checkJWTAuth,
+  isValidId,
+  ctrlWrapper(removeContByIdCtrl)
+);
 
 router.put(
   "/:contactId",
+  checkJWTAuth,
   isValidId,
   reqValidation(contactSchema),
   ctrlWrapper(updateContByIdCtrl)
@@ -32,6 +49,7 @@ router.put(
 
 router.patch(
   "/:contactId/favorite",
+  checkJWTAuth,
   isValidId,
   reqValidation(favoriteSchema),
   ctrlWrapper(updateStatusContactCtrl)

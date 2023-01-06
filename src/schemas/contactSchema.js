@@ -1,5 +1,6 @@
 import Joi from "joi";
-import { emailRegExp, phoneRegExp } from "../helpers/patterns.js";
+
+import { emailRegExp, phoneRegExp } from "../helpers/patternsRegExp.js";
 
 const contactSchema = Joi.object({
   name: Joi.string().min(3).max(30).required(),
@@ -16,4 +17,8 @@ const contactSchema = Joi.object({
   favorite: Joi.boolean(),
 });
 
-export { contactSchema };
+const favoriteSchema = Joi.object({
+  favorite: Joi.boolean().required(),
+});
+
+export { contactSchema, favoriteSchema };

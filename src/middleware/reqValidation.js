@@ -8,7 +8,7 @@ const reqValidation = (schema) => {
       next(new ValidationError("All fields is required"));
     }
 
-    const { error } = schema.validate(body);
+    const { error } = await schema.validate(body);
 
     if (error) {
       next(new ValidationError(error.message));

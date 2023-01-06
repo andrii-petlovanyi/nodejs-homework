@@ -1,8 +1,15 @@
-import { Contact } from "../db/contactModel.js";
+import { Contact } from "../models/contactModel.js";
 import { WrongParamsError } from "../helpers/errors.js";
 
-const listContacts = async () => {
-  const contacts = await Contact.find({});
+const listContacts = async (id, page, limit, reqFavorite) => {
+  const favorite = reqFavorite === null ? { $exists: true } : reqFavorite;
+
+  const skip = (page - 1) * limit;
+  const contacts = await Contact.find({ owner: id, favorite }, "", {
+    skip,
+    limit: Number(limit),
+  });
+
   return contacts;
 };
 
@@ -23,8 +30,8 @@ const removeContact = async (contactId) => {
   return;
 };
 
-const addContact = async (body) => {
-  const newContact = await Contact.create(body);
+const addContact = async (id, body) => {
+  const newContact = await Contact.create({ ...body, owner: id });
   return newContact;
 };
 

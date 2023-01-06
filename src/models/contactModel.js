@@ -1,7 +1,8 @@
-import mongoose from "mongoose";
-import { emailRegExp, phoneRegExp } from "../helpers/patterns.js";
+import mongoose, { SchemaTypes } from "mongoose";
 
-const contactSchema = new mongoose.Schema(
+import { emailRegExp, phoneRegExp } from "../helpers/patternsRegExp.js";
+
+const contactJoiSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -15,7 +16,7 @@ const contactSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
       unique: true,
-      required: [true, "Please enter email"],
+      required: [true, "Email is required. Please enter email"],
       match: [emailRegExp, "Please enter the valid email address"],
     },
     phone: {
@@ -25,6 +26,10 @@ const contactSchema = new mongoose.Schema(
       unique: true,
       match: [phoneRegExp, "Please enter the valid phone number"],
     },
+    owner: {
+      type: SchemaTypes.ObjectId,
+      ref: "User",
+    },
     favorite: {
       type: Boolean,
       default: false,
@@ -33,6 +38,6 @@ const contactSchema = new mongoose.Schema(
   { versionKey: false, timestamps: true }
 );
 
-const Contact = mongoose.model("Contact", contactSchema);
+const Contact = mongoose.model("Contact", contactJoiSchema);
 
 export { Contact };

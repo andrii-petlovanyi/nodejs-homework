@@ -1,7 +1,16 @@
-import { connectMongo } from "./db/connection.js";
-import { app } from "./app.js";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import { app } from "./src/app.js";
+
+dotenv.config();
 
 const PORT = process.env.PORT || 5005;
+const { MONGO_URL } = process.env;
+
+const connectMongo = async () => {
+  mongoose.set("strictQuery", false);
+  return mongoose.connect(MONGO_URL);
+};
 
 const start = async () => {
   try {
