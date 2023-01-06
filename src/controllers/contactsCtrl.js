@@ -7,8 +7,12 @@ import {
   updateStatusContact,
 } from "../services/contacts.js";
 
-const getAllContCtrl = async (_, res) => {
-  const data = await listContacts();
+const getAllContCtrl = async (req, res) => {
+  const { id } = req.user;
+  const { page = 1, limit = 10, favorite: reqFavorite = null } = req.query;
+
+  const data = await listContacts(id, page, limit, reqFavorite);
+
   res.status(200).json({ data, status: "success" });
 };
 
@@ -32,7 +36,8 @@ const removeContByIdCtrl = async (req, res) => {
 
 const addContCtrl = async (req, res) => {
   const body = req.body;
-  const data = await addContact(body);
+  const { id } = req.user;
+  const data = await addContact(id, body);
   res.status(201).json({
     data,
     status: "success",
