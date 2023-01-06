@@ -1,32 +1,32 @@
-class ValidationError extends Error {
+class PhoneBookError extends Error {
   constructor(message) {
     super(message);
     this.status = 400;
   }
 }
 
-class WrongParamsError extends Error {
+class ValidationError extends PhoneBookError {
   constructor(message) {
     super(message);
     this.status = 400;
   }
 }
 
-class NotAuthorizedError extends Error {
+class WrongParamsError extends PhoneBookError {
   constructor(message) {
     super(message);
-    this.status = 403;
+    this.status = 400;
   }
 }
 
-class BadCredentials extends Error {
+class NotAuthorizedError extends PhoneBookError {
   constructor(message) {
     super(message);
     this.status = 401;
   }
 }
 
-class ConflictError extends Error {
+class ConflictError extends PhoneBookError {
   constructor(message) {
     super(message);
     this.status = 409;
@@ -38,5 +38,5 @@ export {
   WrongParamsError,
   NotAuthorizedError,
   ConflictError,
-  BadCredentials,
+  PhoneBookError,
 };

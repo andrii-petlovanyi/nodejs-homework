@@ -26,6 +26,7 @@ const signInCtrl = async (req, res) => {
 
 const signUpCtrl = async (req, res) => {
   const body = req.body;
+
   const user = await signUp(body);
 
   res.status(201).json({
@@ -66,6 +67,7 @@ const getCurrentUserCtrl = async (req, res) => {
 const updateSubsCtrl = async (req, res) => {
   const body = req.body;
   const { id } = req.user;
+  
   const data = await updateSubscription(id, body);
 
   res.status(200).json({

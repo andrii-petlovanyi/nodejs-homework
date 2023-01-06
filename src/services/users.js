@@ -1,4 +1,4 @@
-import { BadCredentials, ConflictError } from "../helpers/errors.js";
+import { NotAuthorizedError, ConflictError } from "../helpers/errors.js";
 import { generateToken } from "../helpers/generateToken.js";
 import { User } from "../models/userModel.js";
 
@@ -6,7 +6,7 @@ const signIn = async ({ email, password }) => {
   const user = await User.findOne({ email });
 
   if (!user || !user.comparePassword(password))
-    throw new BadCredentials("Email or password is wrong");
+    throw new NotAuthorizedError("Email or password is wrong");
 
   const token = generateToken(user);
 
@@ -22,13 +22,15 @@ const signUp = async ({ name, email, password }) => {
 
   const newUser = new User({ name, email });
   newUser.setPassword(password);
+
   await newUser.save();
   return newUser;
 };
 
 const logOut = async (id) => {
   const user = await User.findByIdAndUpdate(id, { token: null });
-  if (!user) throw new BadCredentials("Not authorized");
+
+  if (!user) throw new NotAuthorizedError("Not authorized");
 
   return;
 };

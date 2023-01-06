@@ -8,7 +8,7 @@ const listContacts = async (id, page, limit, reqFavorite) => {
   const contacts = await Contact.find({ owner: id, favorite }, "", {
     skip,
     limit: Number(limit),
-  }).populate("owner", "_id");
+  });
 
   return contacts;
 };

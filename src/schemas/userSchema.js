@@ -1,4 +1,5 @@
 import Joi from "joi";
+
 import { emailRegExp } from "../helpers/patterns.js";
 
 const singUpJoiSchema = Joi.object({

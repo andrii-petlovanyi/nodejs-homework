@@ -18,6 +18,7 @@ const getAllContCtrl = async (req, res) => {
 
 const getContByIdCtrl = async (req, res) => {
   const { contactId } = req.params;
+
   const data = await getContactById(contactId);
 
   res.status(200).json({ data, status: "success" });
@@ -25,6 +26,7 @@ const getContByIdCtrl = async (req, res) => {
 
 const removeContByIdCtrl = async (req, res) => {
   const { contactId } = req.params;
+
   await removeContact(contactId);
 
   res.status(200).json({
@@ -37,7 +39,9 @@ const removeContByIdCtrl = async (req, res) => {
 const addContCtrl = async (req, res) => {
   const body = req.body;
   const { id } = req.user;
+
   const data = await addContact(id, body);
+
   res.status(201).json({
     data,
     status: "success",
@@ -48,6 +52,7 @@ const addContCtrl = async (req, res) => {
 const updateContByIdCtrl = async (req, res) => {
   const { contactId } = req.params;
   const body = req.body;
+
   const data = await updateContact(contactId, body);
 
   res.status(200).json({
