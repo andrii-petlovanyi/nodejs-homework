@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-import { emailRegExp } from "../helpers/patterns.js";
+import { emailRegExp } from "../helpers/patternsRegExp.js";
 
 const singUpJoiSchema = Joi.object({
   name: Joi.string().min(3).required(),

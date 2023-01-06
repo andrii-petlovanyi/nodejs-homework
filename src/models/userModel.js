@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcryptjs from "bcryptjs";
 
-import { emailRegExp } from "../helpers/patterns.js";
+import { emailRegExp } from "../helpers/patternsRegExp.js";
 
 const userSchema = mongoose.Schema(
   {
