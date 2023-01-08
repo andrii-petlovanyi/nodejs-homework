@@ -13,15 +13,13 @@ import { User } from "../models/userModel.js";
 
 const signIn = async ({ email, password }) => {
   const user = await User.findOne({ email });
-
   if (!user || !user.comparePassword(password))
     throw new NotAuthorizedError("Email or password is wrong");
 
   const token = generateToken(user);
 
   await User.findByIdAndUpdate(user._id, { token });
-
-  return { token, user };
+  return { user, token };
 };
 
 const signUp = async ({ name, email, password }) => {

@@ -12,9 +12,11 @@ const singUpJoiSchema = Joi.object({
 
 const singInJoiSchema = Joi.object({
   email: Joi.string().pattern(emailRegExp).required().messages({
-    "string.pattern.base": `Please fill a valid email address`,
+    "string.pattern.base": `Please enter a valid email address`,
   }),
-  password: Joi.string().min(6).required(),
+  password: Joi.string().min(6).required().messages({
+    "string.min": `Password length must be at least 6 characters long`,
+  }),
 });
 
 const subscriptionJoiSchema = Joi.object({
