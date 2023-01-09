@@ -9,7 +9,6 @@ const email = process.env.SENDGRID_EMAIL;
 const emailSender = async (data) => {
   try {
     await sgMail.send({ ...data, from: email });
-    console.log("Емейл отправлен", { ...data, from: email });
 
     return true;
   } catch (error) {

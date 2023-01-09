@@ -2,6 +2,7 @@ import gravatar from "gravatar";
 import path from "path";
 import fs from "fs/promises";
 import Jimp from "jimp";
+import { nanoid } from "nanoid";
 import dotenv from "dotenv";
 
 import {
@@ -41,7 +42,7 @@ const signUp = async ({ name, email, password }) => {
   const avatarURL = gravatar.url(email, { protocol: "https" });
 
   //temporary crutch with Date
-  const verificationToken = Date.now();
+  const verificationToken = nanoid();
 
   const newUser = new User({ name, email, avatarURL, verificationToken });
   newUser.setPassword(password);
