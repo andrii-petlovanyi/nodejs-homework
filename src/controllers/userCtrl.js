@@ -2,6 +2,7 @@ import {
   logOut,
   signIn,
   signUp,
+  updateAvatar,
   updateSubscription,
 } from "../services/users.js";
 
@@ -67,7 +68,7 @@ const getCurrentUserCtrl = async (req, res) => {
 const updateSubsCtrl = async (req, res) => {
   const body = req.body;
   const { id } = req.user;
-  
+
   const data = await updateSubscription(id, body);
 
   res.status(200).json({
@@ -83,10 +84,28 @@ const updateSubsCtrl = async (req, res) => {
   });
 };
 
+const updateAvatarCtrl = async (req, res) => {
+  const { id } = req.user;
+  const file = req.file;
+
+  const avatarURL = await updateAvatar(id, file);
+
+  res.status(200).json({
+    status: "success",
+    code: 200,
+    data: {
+      user: {
+        avatarURL: avatarURL,
+      },
+    },
+  });
+};
+
 export {
   signInCtrl,
   signUpCtrl,
   logOutCtrl,
   getCurrentUserCtrl,
   updateSubsCtrl,
+  updateAvatarCtrl,
 };

@@ -9,7 +9,14 @@ const { MONGO_URL } = process.env;
 
 const connectMongo = async () => {
   mongoose.set("strictQuery", false);
-  return mongoose.connect(MONGO_URL);
+
+  //need await, but await marked as non-used and no effects, why???
+  // await mongoose.connect(MONGO_URL);
+
+  //temporary crutch
+  return new Promise((response) => {
+    response(mongoose.connect(MONGO_URL));
+  });
 };
 
 const start = async () => {
