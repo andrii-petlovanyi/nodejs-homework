@@ -2,19 +2,30 @@ import gravatar from "gravatar";
 import path from "path";
 import fs from "fs/promises";
 import Jimp from "jimp";
+import dotenv from "dotenv";
 
 import {
   NotAuthorizedError,
   ConflictError,
   ValidationError,
+  WrongParamsError,
+  AccessDeniedError,
 } from "../helpers/errors.js";
 import { generateToken } from "../helpers/generateToken.js";
 import { User } from "../models/userModel.js";
+import { emailSender } from "../helpers/emailSender.js";
+
+dotenv.config();
 
 const signIn = async ({ email, password }) => {
   const user = await User.findOne({ email });
+
   if (!user || !user.comparePassword(password))
     throw new NotAuthorizedError("Email or password is wrong");
+
+  if (!user.verify) {
+    throw new AccessDeniedError("Sorry, but your email not verify");
+  }
 
   const token = generateToken(user);
 
@@ -29,8 +40,19 @@ const signUp = async ({ name, email, password }) => {
 
   const avatarURL = gravatar.url(email, { protocol: "https" });
 
-  const newUser = new User({ name, email, avatarURL });
+  //temporary crutch with Date
+  const verificationToken = Date.now();
+
+  const newUser = new User({ name, email, avatarURL, verificationToken });
   newUser.setPassword(password);
+
+  const msg = {
+    to: email,
+    subject: "Email verify",
+    html: `<a href="${process.env.BASE_URL}/api/users/verify/${newUser.verificationToken}" target="_blank">Verify email</a>`,
+  };
+
+  await emailSender(msg);
 
   await newUser.save();
   return newUser;
@@ -89,4 +111,45 @@ const updateAvatar = async (id, file) => {
   }
 };
 
-export { signIn, signUp, logOut, updateSubscription, updateAvatar };
+const verifyEmail = async (verificationToken) => {
+  const user = await User.findOne({ verificationToken });
+
+  if (!user) {
+    throw new WrongParamsError("Token not found or expired");
+  }
+
+  await User.findByIdAndUpdate(user._id, {
+    verificationToken: null,
+    verify: true,
+  });
+};
+
+const resendEmail = async (email) => {
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new NotAuthorizedError("Email is wrong");
+  }
+
+  if (!user.verificationToken) {
+    throw new ValidationError("Verification has already been passed");
+  }
+
+  const msg = {
+    to: email,
+    subject: "Email verify",
+    html: `<a href="${process.env.BASE_URL}/api/users/verify/${user.verificationToken}" target="_blank">Verify email</a>`,
+  };
+
+  await emailSender(msg);
+};
+
+export {
+  signIn,
+  signUp,
+  logOut,
+  updateSubscription,
+  updateAvatar,
+  verifyEmail,
+  resendEmail,
+};

@@ -7,6 +7,7 @@ import {
   signUpCtrl,
   updateAvatarCtrl,
   updateSubsCtrl,
+  verifyEmailCtrl,
 } from "../../controllers/userCtrl.js";
 import { checkJWTAuth } from "../../middleware/checkJWTAuth.js";
 import { ctrlWrapper } from "../../middleware/ctrlWrapper.js";
@@ -16,6 +17,7 @@ import {
   singInJoiSchema,
   singUpJoiSchema,
   subscriptionJoiSchema,
+  // verificationEmailJoiSchema,
 } from "../../schemas/userSchema.js";
 
 const router = express.Router();
@@ -36,5 +38,11 @@ router.patch(
   uploadAvatar.single("avatar"),
   ctrlWrapper(updateAvatarCtrl)
 );
+router.get("/verify/:verificationToken", ctrlWrapper(verifyEmailCtrl));
+// router.post(
+//   "/verify",
+//   reqValidation(verificationEmailJoiSchema),
+//   ctrlWrapper(ctrl.resendEmail)
+// );
 
 export { router as authRouter };

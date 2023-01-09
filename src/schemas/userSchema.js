@@ -23,4 +23,15 @@ const subscriptionJoiSchema = Joi.object({
   subscription: Joi.string().valid("starter", "pro", "business").required(),
 });
 
-export { singInJoiSchema, singUpJoiSchema, subscriptionJoiSchema };
+const verificationEmailJoiSchema = Joi.object({
+  email: Joi.string().pattern(emailRegExp).required().messages({
+    "string.pattern.base": `Please enter a valid email address`,
+  }),
+});
+
+export {
+  singInJoiSchema,
+  singUpJoiSchema,
+  subscriptionJoiSchema,
+  verificationEmailJoiSchema,
+};

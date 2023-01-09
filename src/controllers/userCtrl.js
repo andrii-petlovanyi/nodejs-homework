@@ -1,9 +1,11 @@
 import {
   logOut,
+  resendEmail,
   signIn,
   signUp,
   updateAvatar,
   updateSubscription,
+  verifyEmail,
 } from "../services/users.js";
 
 const signInCtrl = async (req, res) => {
@@ -101,6 +103,34 @@ const updateAvatarCtrl = async (req, res) => {
   });
 };
 
+const verifyEmailCtrl = async (req, res) => {
+  const { verificationToken } = req.params;
+
+  await verifyEmail(verificationToken);
+
+  res.status(200).json({
+    status: "success",
+    code: 200,
+    data: {
+      message: "Verification successful",
+    },
+  });
+};
+
+const resendEmailCtrl = async (req, res) => {
+  const { email } = req.body;
+
+  await resendEmail(email);
+
+  res.status(200).json({
+    status: "success",
+    code: 200,
+    data: {
+      message: "Verification email sent",
+    },
+  });
+};
+
 export {
   signInCtrl,
   signUpCtrl,
@@ -108,4 +138,6 @@ export {
   getCurrentUserCtrl,
   updateSubsCtrl,
   updateAvatarCtrl,
+  verifyEmailCtrl,
+  resendEmailCtrl,
 };

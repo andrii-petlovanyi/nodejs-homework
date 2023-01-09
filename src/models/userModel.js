@@ -22,7 +22,15 @@ const userSchema = mongoose.Schema(
       default: "starter",
     },
     avatarURL: String,
-    token: String,
+    token: { type: String, default: null },
+    verificationToken: {
+      type: String,
+      require: [true, "Verify token is required"],
+    },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
   },
   { versionKey: false, timestamps: true }
 );
