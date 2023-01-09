@@ -21,7 +21,7 @@ import {
 const router = express.Router();
 
 router.post("/signup", reqValidation(singUpJoiSchema), ctrlWrapper(signUpCtrl));
-router.get("/signin", reqValidation(singInJoiSchema), ctrlWrapper(signInCtrl));
+router.post("/signin", reqValidation(singInJoiSchema), ctrlWrapper(signInCtrl));
 router.post("/logout", checkJWTAuth, ctrlWrapper(logOutCtrl));
 router.get("/current", checkJWTAuth, ctrlWrapper(getCurrentUserCtrl));
 router.patch(
