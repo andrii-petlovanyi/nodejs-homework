@@ -11,10 +11,10 @@ import {
   ValidationError,
   WrongParamsError,
   AccessDeniedError,
-} from "../helpers/errors.js";
-import { generateToken } from "../helpers/generateToken.js";
+  generateToken,
+  emailSender,
+} from "../helpers/index.js";
 import { User } from "../models/userModel.js";
-import { emailSender } from "../helpers/emailSender.js";
 
 dotenv.config();
 

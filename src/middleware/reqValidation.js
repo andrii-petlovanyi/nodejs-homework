@@ -1,4 +1,4 @@
-import { ValidationError } from "../helpers/errors.js";
+import { ValidationError } from "../helpers/index.js";
 
 const reqValidation = (schema) => {
   const func = async (req, res, next) => {

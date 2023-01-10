@@ -1,5 +1,5 @@
 import { Contact } from "../models/contactModel.js";
-import { WrongParamsError } from "../helpers/errors.js";
+import { WrongParamsError } from "../helpers/index.js";
 
 const listContacts = async (id, page, limit, reqFavorite) => {
   const favorite = reqFavorite === null ? { $exists: true } : reqFavorite;
