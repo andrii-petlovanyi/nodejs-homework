@@ -3,6 +3,7 @@ import express from "express";
 import {
   getCurrentUserCtrl,
   logOutCtrl,
+  resendEmailCtrl,
   signInCtrl,
   signUpCtrl,
   updateAvatarCtrl,
@@ -17,7 +18,7 @@ import {
   singInJoiSchema,
   singUpJoiSchema,
   subscriptionJoiSchema,
-  // verificationEmailJoiSchema,
+  verificationEmailJoiSchema,
 } from "../../schemas/userSchema.js";
 
 const router = express.Router();
@@ -39,10 +40,10 @@ router.patch(
   ctrlWrapper(updateAvatarCtrl)
 );
 router.get("/verify/:verificationToken", ctrlWrapper(verifyEmailCtrl));
-// router.post(
-//   "/verify",
-//   reqValidation(verificationEmailJoiSchema),
-//   ctrlWrapper(ctrl.resendEmail)
-// );
+router.post(
+  "/verify",
+  reqValidation(verificationEmailJoiSchema),
+  ctrlWrapper(resendEmailCtrl)
+);
 
 export { router as authRouter };
