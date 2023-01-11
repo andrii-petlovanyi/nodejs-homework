@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcryptjs from "bcryptjs";
 
-import { emailRegExp } from "../helpers/patternsRegExp.js";
+import { emailRegExp } from "../helpers/index.js";
 
 const userSchema = mongoose.Schema(
   {
@@ -22,7 +22,15 @@ const userSchema = mongoose.Schema(
       default: "starter",
     },
     avatarURL: String,
-    token: String,
+    token: { type: String, default: null },
+    verificationToken: {
+      type: String,
+      require: [true, "Verify token is required"],
+    },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
   },
   { versionKey: false, timestamps: true }
 );

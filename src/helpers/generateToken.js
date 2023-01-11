@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+
 dotenv.config();
+
 const { JWT_SECRET_KEY } = process.env;
 
 const generateToken = ({ _id: id, email, subscription }) => {

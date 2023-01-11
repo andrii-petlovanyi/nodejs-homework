@@ -3,7 +3,12 @@ import Joi from "joi";
 import { emailRegExp, phoneRegExp } from "../helpers/patternsRegExp.js";
 
 const contactSchema = Joi.object({
-  name: Joi.string().min(3).max(30).required(),
+  name: Joi.string().min(3).max(30).required().messages({
+    "string.max":
+      "{{#label}} length must be less than or equal to {{#limit}} characters long",
+    "string.min":
+      "{{#label}} length must be at least {{#limit}} characters long",
+  }),
   email: Joi.string()
     .email({ minDomainSegments: 2 })
     .pattern(emailRegExp)

@@ -19,6 +19,13 @@ class WrongParamsError extends PhoneBookError {
   }
 }
 
+class AccessDeniedError extends PhoneBookError {
+  constructor(message) {
+    super(message);
+    this.status = 403;
+  }
+}
+
 class NotAuthorizedError extends PhoneBookError {
   constructor(message) {
     super(message);
@@ -39,4 +46,5 @@ export {
   NotAuthorizedError,
   ConflictError,
   PhoneBookError,
+  AccessDeniedError,
 };

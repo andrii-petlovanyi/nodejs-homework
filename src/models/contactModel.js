@@ -1,6 +1,6 @@
 import mongoose, { SchemaTypes } from "mongoose";
 
-import { emailRegExp, phoneRegExp } from "../helpers/patternsRegExp.js";
+import { emailRegExp, phoneRegExp } from "../helpers/index.js";
 
 const contactJoiSchema = new mongoose.Schema(
   {

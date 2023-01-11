@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
-import { NotAuthorizedError } from "../helpers/errors.js";
+import { NotAuthorizedError } from "../helpers/index.js";
 import { User } from "../models/userModel.js";
 
 dotenv.config();
