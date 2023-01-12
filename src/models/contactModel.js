@@ -2,7 +2,7 @@ import mongoose, { SchemaTypes } from "mongoose";
 
 import { emailRegExp, phoneRegExp } from "../helpers/index.js";
 
-const contactJoiSchema = new mongoose.Schema(
+const contactSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -38,6 +38,6 @@ const contactJoiSchema = new mongoose.Schema(
   { versionKey: false, timestamps: true }
 );
 
-const Contact = mongoose.model("Contact", contactJoiSchema);
+const Contact = mongoose.model("Contact", contactSchema);
 
 export { Contact };
