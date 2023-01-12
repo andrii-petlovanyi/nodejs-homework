@@ -5,12 +5,12 @@ import { emailRegExp } from "../helpers/index.js";
 const singUpJoiSchema = Joi.object({
   name: Joi.string().min(3).max(30).required().messages({
     "string.max":
-      "{{#label}} length must be less than or equal to {{#limit}} characters long",
+      "Name length must be less than or equal to {{#limit}} characters long",
     "string.min":
-      "{{#label}} length must be at least {{#limit}} characters long",
+      "Name length must be at least {{#limit}} characters long",
   }),
   email: Joi.string().pattern(emailRegExp).required().messages({
-    "string.pattern.base": `Please fill a valid email address`,
+    "string.pattern.base": `Please enter a valid email address`,
   }),
   password: Joi.string().min(6).required(),
 });

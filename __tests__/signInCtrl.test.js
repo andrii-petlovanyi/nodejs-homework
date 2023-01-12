@@ -6,9 +6,9 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 
 dotenv.config();
-const { MONGO_URL } = process.env;
+const { MONGO_URL, PORT } = process.env;
 
-const goodParams = { email: "a.pam@egetlac.co", password: "123321" };
+const goodParams = { email: "p_a_m@i.ua", password: "123321" };
 const incorrectParams = { email: "a.pam@egetlac.com", password: "123321" };
 const incorrectEmailFormat = { email: "a.pamegetlac.com", password: "123321" };
 const incorrectPasswordFormat = {
@@ -22,7 +22,7 @@ describe("Test for SignIn controller", () => {
     mongoose
       .connect(MONGO_URL)
       .then(() => {
-        server = app.listen(6006, () => {
+        server = app.listen(PORT, () => {
           console.log("Testing server started successful");
         });
       })
@@ -42,7 +42,7 @@ describe("Test for SignIn controller", () => {
         data: { token, user },
       },
     } = await request(app)
-      .get("/api/users/signin")
+      .post("/api/users/signin")
       .set("Content-type", "application/json")
       .send(goodParams);
 
@@ -59,7 +59,7 @@ describe("Test for SignIn controller", () => {
       status,
       body: { message },
     } = await request(app)
-      .get("/api/users/signin")
+      .post("/api/users/signin")
       .set("Content-type", "application/json")
       .send(incorrectParams);
 
@@ -72,7 +72,7 @@ describe("Test for SignIn controller", () => {
       status,
       body: { message },
     } = await request(app)
-      .get("/api/users/signin")
+      .post("/api/users/signin")
       .set("Content-type", "application/json")
       .send(incorrectEmailFormat);
 
@@ -85,7 +85,7 @@ describe("Test for SignIn controller", () => {
       status,
       body: { message },
     } = await request(app)
-      .get("/api/users/signin")
+      .post("/api/users/signin")
       .set("Content-type", "application/json")
       .send(incorrectPasswordFormat);
 
@@ -98,7 +98,7 @@ describe("Test for SignIn controller", () => {
       status,
       body: { message },
     } = await request(app)
-      .get("/api/users/signin")
+      .post("/api/users/signin")
       .set("Content-type", "application/json")
       .send();
 
@@ -111,7 +111,7 @@ describe("Test for SignIn controller", () => {
       status,
       body: { message },
     } = await request(app)
-      .get("/api/users/signin")
+      .post("/api/users/signin")
       .set("Content-type", "application/json")
       .send({
         password: "123321",
@@ -126,7 +126,7 @@ describe("Test for SignIn controller", () => {
       status,
       body: { message },
     } = await request(app)
-      .get("/api/users/signin")
+      .post("/api/users/signin")
       .set("Content-type", "application/json")
       .send({
         email: "andrey.petlovany@gmail.com",
