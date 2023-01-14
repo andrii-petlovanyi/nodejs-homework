@@ -14,9 +14,8 @@ const connectMongo = async () => {
   // await mongoose.connect(MONGO_URL);
 
   //temporary crutch
-  return new Promise((response) => {
-    response(mongoose.connect(MONGO_URL));
-  });
+
+  mongoose.connect(MONGO_URL);
 };
 
 const start = async () => {

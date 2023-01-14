@@ -14,7 +14,10 @@ import {
   isValidId,
   reqValidation,
 } from "../../middleware/index.js";
-import { contactSchema, favoriteSchema } from "../../schemas/contactSchema.js";
+import {
+  contactSchema,
+  favoriteSchema,
+} from "../../models/joi/contactSchema.js";
 
 const router = new Router();
 

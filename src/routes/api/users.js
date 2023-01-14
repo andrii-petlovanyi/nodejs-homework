@@ -22,7 +22,7 @@ import {
   singUpJoiSchema,
   subscriptionJoiSchema,
   verificationEmailJoiSchema,
-} from "../../schemas/userSchema.js";
+} from "../../models/joi/userSchema.js";
 
 const router = express.Router();
 

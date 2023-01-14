@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-import { emailRegExp } from "../helpers/index.js";
+import { emailRegExp } from "../../helpers/index.js";
 
 const singUpJoiSchema = Joi.object({
   name: Joi.string().min(3).max(30).required().messages({
