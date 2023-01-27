@@ -14,7 +14,7 @@ import {
   generateToken,
   emailSender,
 } from "../helpers/index.js";
-import { User } from "../models/mongoose/userModel.js";
+import { User } from "../models/userModel.js";
 
 dotenv.config();
 

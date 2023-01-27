@@ -17,7 +17,7 @@ import {
 import {
   contactSchema,
   favoriteSchema,
-} from "../../models/joi/contactSchema.js";
+} from "../../validation/contactSchema.js";
 
 const router = new Router();
 

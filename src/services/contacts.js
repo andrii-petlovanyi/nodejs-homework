@@ -1,4 +1,4 @@
-import { Contact } from "../models/mongoose/contactModel.js";
+import { Contact } from "../models/contactModel.js";
 import { WrongParamsError } from "../helpers/index.js";
 
 const listContacts = async (id, page, limit, reqFavorite) => {
